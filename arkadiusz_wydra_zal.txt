@@ -1,0 +1,25 @@
+2. 
+select c.contactFirstName as firstName, c.contactLastName as lastName, count(*) as orders
+from customers as c inner join payments as p on c.customerNumber = p.customerNumber
+group by c.contactFirstName, c.contactLastName 
+
+4.
+a)
+select productName, sum(quantityOrdered*priceEach) as earnings, year(orderDate) as year 
+from orderdetails as od inner join products as p on od.productCode = p.productCode 
+inner join orders as o on od.orderNumber = o.orderNumber 
+where productName = '1968 Ford Mustang' OR productName='1952 Alpine Renault 1300' 
+OR productName= '1996 Moto Guzzi 1100i' group by productName, year order by year
+
+b)
+select productName, sum(quantityOrdered*priceEach) as earnings, year(orderdate) as year, 
+month(orderDate) as month from products as p 
+inner join orderdetails as od on p.productCode = od.productCode 
+inner join orders as o on o.orderNumber = od.orderNumber 
+WHERE productname LIKE "%harley%" GROUP BY productName, year, month order by year, month
+
+c)
+select productLine, count(productLine) as products from products 
+group by productLine having products > 10 AND products <= 20
+
+https://github.com/AWydra/WOU-ITZ-zaliczenie
